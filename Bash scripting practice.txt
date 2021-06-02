@@ -1,0 +1,224 @@
+Author:Prashanth B S
+Email :prashanth.ethicalhacker@gmail.com
+Linked In Profile:https://www.linkedin.com/in/prashanth-banapur-a4a4212a/
+=========================================================================
+#! bin/bash
+
+clear
+
+# Global variables
+user=$(whoami)
+break="=================================="
+
+echo
+echo 
+echo "Hello"
+echo $break
+echo
+echo "hello" $user
+echo $break
+echo $break
+ping -c3 google.com 
+
+echo "Ping Complete "
+read -p "Press <enter to continue "
+
+ifconfig
+# To remove files
+rm tmp* .doc *.txt 2>/dev/null
+
+==================================================   
+Recon-People.sh
+
+#! bin/bash
+
+clear
+echo
+echo
+
+echo -n "First name"
+read fname
+#check for no response
+if [ -z $fname ];then 
+	echo
+	echo "you did not enter first name"
+	exit
+fi
+
+echo
+echo -n "Last name"
+read lname
+#check for no response
+if [ -z $lname ];then 
+	echo
+	echo "you did not enter last name"
+	exit
+fi
+echo
+
+echo "You can follow directions, Starting recon on  " $fname $lname
+read -p "Press <enter to continue "
+
+firefox &
+sleep 4
+firefox -new-tab http://www.411.com/name/$fname-$lname &
+sleep 1
+firefox -new-tab http://www.peekyou.com/$fname_$lname & 
+sleep 1 
+firefox -new-tab http://www.spokeo.com/search?q=$fname+$lname &
+sleep 1 
+firefox -new-tab http://www.zabasearch.com/people/$fname+$lname &
+sleep 1 
+firefox -new-tab http://pipl.com/search/?q=$fname+$lname &
+sleep 1 
+firefox -new-tab http://www.cvgadget.com/person/$fname/$lname &
+
+================================================================
+Recon-DNS.sh
+
+#! bin/bash
+
+clear
+echo
+echo
+
+echo -n "Enter domain name"
+read domain
+#check for no response
+if [ -z $domain ];then 
+	echo
+	echo "you did not enter domainname"
+	exit
+fi
+
+echo
+echo "You can follow directions, Starting recon on  " $domain
+read -p "Press <enter to continue "
+
+firefox &
+sleep 4
+firefox https://mxtoolbox.com/SuperTool.aspx?action=dns%3$domain&run=toolpage &
+sleep 2
+firefox -new-tab https://intodns.com/$domain & 
+sleep 1 
+firefox -new-tab https://viewdns.info/dnsreport/?domain=$domain &
+sleep 1 
+firefox -new-tab https://dnschecker.org/all-dns-records-of-domain.php?query=$domain&rtype=ALL&dns=google &
+sleep 1 
+firefox -new-tab https://bgp.he.net/dns/$domain &
+sleep 1 
+firefox -new-tab https://whatsmydns.me/#A/$domain &
+sleep 1 
+firefox -new-tab https://dnstwister.report/search?ed=$domain &
+
+===================================================================
+OpenList.sh
+
+#! bin/bash
+
+clear
+echo
+echo
+
+echo -n "Enter location of list"
+read list
+#check for no response
+if [ -z $list ];then 
+	echo
+	echo "you did not enter location"
+	exit
+fi
+echo "Good Job"
+
+#check for no wrong location
+if [ ! -f $list ];then 
+	echo
+	echo "File does not exist"
+	exit
+fi
+
+# read a list and open each line in a new tab
+
+firefox &
+sleep 4
+for i in $(cat location); do
+	firefox -new-tab $i &
+	sleep 1
+done
+
+
+domain list file
+--------------
+facebook.com
+cnn.com
+twitter.com
+
+===============================================================
+Robots.sh
+
+#! bin/bash
+
+rm robots.txt tmp 2>/dev/null
+
+clear
+echo
+echo
+
+echo -n "Enter domain"
+read list
+#check for no response
+if [ -z $domain ];then 
+	echo
+	echo "you did not enter domain"
+	exit
+fi
+
+wget -q $domain/robots.txt
+#awk example
+cat robots.txt | grep -i 'Disallow' | awk '{print $2} > tmp
+
+#cut example
+#cat robots.txt | grep -i 'Disallow' | cut -d ' ' -f2 > tmp
+
+cat tmp
+
+# read a list and open each line in a new tab
+
+firefox &
+sleep 4
+for i in $(cat tmp); do
+	firefox -new-tab $domain$i &
+	sleep 1
+done
+
+=====================================================
+#! bin/bash
+
+clear
+echo
+echo
+
+echo "Welcome to Hacking"
+echo "This is my master script"
+echo
+echo
+echo "1. Recon People"
+echo "2. Recon domain"
+echo "1. Open list in firefox"
+echo "1. Open a domain's robots.tct in firefox"
+echo
+echo -n "Choice! "
+read choice
+
+echo $choice
+
+case $choice in
+	1) ./Recon-People.sh;;
+	2) ./Recon-DNS.sh;;
+	3) ./OpenList.sh;;
+	4) ./Robots.sh;;
+	*) echo "You have entered wrong choice"
+esac
+
+
+

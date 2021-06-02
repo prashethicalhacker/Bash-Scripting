@@ -1,0 +1,809 @@
+Author:Prashanth B S
+Email :prashanth.ethicalhacker@gmail.com
+Linked In Profile:https://www.linkedin.com/in/prashanth-banapur-a4a4212a/
+
+
+1.	Hello Bash Scripting
+	$ cat  /etc/shells   ---cat’ command gives  available bashes
+	which bash’ in the terminal that gives the path of the shell. 
+	Create a script using the command ‘touch helloScript.sh’
+	
+	#! /bin/bash
+	echo "hello bash script"
+
+	//To make this script executable you have to run 
+	$ chmod +x helloScript.sh
+
+	use the ‘ls -al’ command to check ‘helloScript.sh’ file permission
+
+2.	Redirect to File
+	//the output of a file and send it to another file.
+	echo “hello bash linuxhint audience” > file.txt
+
+	The script ‘cat > file.txt’ will replace the text with whatever you write in the terminal
+	To create a script that can append the content of ‘file.txt’ you have to write ‘cat >> file.txt’ 
+
+
+3.	Comments
+	•	One-line Comments-->use ‘#’ sign before the comment statement
+		Eg.
+		#! /bin/bash
+
+		#this is a cat command
+		cat>> file.txt
+
+	•	Multi-line Comments---> put ‘: ‘ ‘ before the beginning of the first comment and then write ‘ ‘ ‘after the last comment. 
+		Eg.
+		#! /bin/bash
+		: ‘
+		This is the segment of multi-line comments
+		Through this script, you will learn
+		How to do multi-line commenting
+		‘
+		cat>>file.txt
+
+	•	HereDoc Delimeter ---> going to be displayed on the terminal and in the case of comments
+		#!  /bin/bash
+ 
+		cat << hereDocDelimeter
+		this is a hereDocDelimeter
+		It is a variable
+		You can name it whatever you want to
+		hereDocDelimeter
+
+
+
+
+4.	Conditional Statements
+	If statement
+	------------
+	count=10
+	if [ $count -eq 10 ]
+	then
+    			echo "the condition is true"
+	fi
+
+	else block
+	----------
+	#! /bin/bash
+
+	count=11
+	if [ $count -eq 10 ]
+	then
+    		echo "the condition is true"
+ 	else
+    		echo "the condition is false"
+	fi
+
+	replace the ‘[ ]’ with ‘(( ))’ brackets 
+	---------------------------------------
+	#! /bin/bash
+
+	count=10
+	if (( $count > 9 ))
+	then
+    		echo "the condition is true"
+ 	else
+    		echo "the condition is false"
+	fi
+
+	elif block
+	----------
+	#! /bin/bash
+
+	count=10
+	if (( $count > 9 ))
+ 	then
+    		echo "the first condition is true"
+ 	elif (( $count <= 9 ))
+ 	then
+    		echo "then second condition is true"
+ 	else
+    		echo "the condition is false"
+	fi
+
+	AND operator
+	-------------
+	age=10
+	if [ "$age" -gt 18 ] && [ "$age" -lt 40 ]
+	then
+    		echo "age is correct"
+	else
+    		echo "age is not correct"
+	fi
+
+	also write the condition in the following format
+	------------------------------------------------
+	age=30
+	if [[ "$age" -gt 18 && "$age" -lt 40 ]]
+	then
+    		echo "age is correct"
+	else
+    		echo "age is not correct"
+	fi
+	
+	You can also use ‘-a’ in place of ‘&&’ to use the AND operator 
+	-------------------------------------------------------------
+	age=30
+	if [ "$age" -gt 18 -a "$age" -lt 40 ]
+	then
+    		echo "age is correct"
+	else
+    		echo "age is not correct"
+	fi
+
+	OR operator
+	--------------
+	age=30
+	if [ "$age" -gt 18 -o "$age" -lt 40 ]
+	then
+    		echo "age is correct"
+	else
+    		echo "age is not correct"
+	fi
+
+	
+	age=30
+	if [ "$age" -lt 18 -o "$age" -lt 40 ]
+	then
+    		echo "age is correct"
+	else
+    		echo "age is not correct"
+	fi
+
+	age=30
+	if [ "$age" -lt 18 -o "$age" -gt 40 ]
+	then
+    		echo "age is correct"
+	else
+    		echo "age is not correct"
+	fi
+
+
+	age=30
+	if [[ "$age" -lt 18 || "$age" -gt 40 ]]
+	then
+    		echo "age is correct"
+	else
+    		echo "age is not correct"
+	fi
+
+	age=30
+	if [ "$age" -lt 18 ] || [ "$age" -gt 40 ]
+	then
+    		echo "age is correct"
+	else
+    		echo "age is not correct"
+	fi
+
+
+5.	Loops
+	•	While loops
+		While Loop executes the block of code (enclosed in do…done) when the condition is true and keeps executing that till the condition becomes false
+
+		number=1
+		while [ $number -lt 10 ]
+		do
+    			echo "$number"
+    			number=$(( number+1 ))
+		done
+
+
+		number=1
+		while [ $number -le 10 ]
+		do
+    			echo "$number"
+    			number=$(( number+1 ))
+		done
+
+
+	•	Until loops
+		Until Loop executes the block of code (enclosed in do…done) when the condition is false and keep executing that till the condition becomes true
+		
+		number=1
+		until [ $number -ge 10 ]
+		do
+    			echo "$number"
+    			number=$(( number+1 ))
+		done
+
+
+	•	For loops
+		 for i in 1 2 3 4 5
+ 		 do
+    			echo $i
+ 		 done
+
+			
+		 for i in {0..10}
+ 		 do
+    		  	echo $i
+ 		 done
+
+		 for i in {0..10..2}
+ 		 #{starting..ending..increment}
+ 		 do
+    			echo $i
+ 		 done
+
+		 for (( i=0; i<5; i++ ))
+ 		 do
+    			echo $i
+ 		 done
+
+	
+
+	•	Break and Continue statements
+		A break statement is used to terminate the loop at the given condition
+
+		for (( i=0; i<=10; i++ ))
+ 		do
+    		if [ $i -gt 5 ]
+    		then
+    		break
+    		fi
+    		echo $i
+ 		done
+
+		Continue statement works as opposed to the break statement. It skips the iteration wherever the condition is true
+		for (( i=0; i<=10; i++ ))
+ 		do
+    		if [ $i -eq 3 ] || [  $i -eq 7 ]
+    		then
+    		continue
+    		fi
+    		echo $i
+ 		done
+
+
+6.	Script Input
+	//This code will print out three values on the terminal
+	#! /bin/bash
+ 	echo $1 $2 $3
+
+	//If you also specify ‘$0’ in the echo statement, it will print the script name also
+	echo $0 $1 $2 $3
+
+	code ‘args=(“$@”)’, in which ‘args’ is the name of the array and ‘@’ represents that it may have an infinite number of values
+	args=("$@") #you can also specify the array size here
+ 	echo ${args[0]} ${args[1]} ${args[2]}
+
+	//will print out all the values that represent the array elements
+	args=("$@")
+	 echo $@
+
+	//print out the array size by writing ‘echo $# ’ 
+	 args=("$@")
+ 	 echo $@   #prints all the array elements
+ 	 echo $#   #print the array size
+
+	Reading file using stdin
+	------------------------
+	while read line
+	do
+    		echo "$line"   
+	done < "${1:-/dev/stdin}"
+
+
+
+7.	Script Output
+	You can redirect the standard output and standard error to single or multiple files
+	1>file1.txt 2>file2.txt’, 1 represents the standard output and 2 represents the standard error
+
+	ls +al 1>file1.txt 2>file2.txt
+	‘file1.txt’ is empty because there exists no standard output for the script and standard error will be saved in ‘file2.txt’
+
+	You can also create two separate scripts for this purpose. In this case, the first script is going to store the standard output in the ‘file1.txt’ and the second script will store standard error
+	ls -al >file1.txt
+	ls +al >file1.txt
+	
+	You can also use a single file for storing standard output and standard output
+	ls -al >file1.txt 2>&1
+
+8.	Sending output from one script to another
+	To send output from one script to another script
+	#! /bin/bash
+	MESSAGE="Hello LinuxHint Audience"
+	export MESSAGE
+.	/secondScript.sh
+
+	secondScript.sh
+	-------------------
+	echo "the message from helloScript is: $MESSAGE"
+
+	chmod +x ./secondScript.sh
+9.	Strings Processing
+	echo "enter Ist string"
+	read st1
+	echo "enter 2nd string"
+	read st2
+
+	if [ "$st1" == "$st2" ]
+	then
+    	echo "strings match"
+	else
+    	echo "strings don't match"
+	fi
+
+	//Checking string is smaller or not
+	echo "enter Ist string"
+	read st1
+	echo "enter 2nd string"
+	read st2
+
+	if [ "$st1" \ "$st2" ]
+	then
+    	echo "Second string $st2 is smaller than $st1"
+	else
+    	echo "strings are equal"   
+	fi
+
+	Concatenation
+	-------------
+	echo "enter Ist string"
+	read st1
+	echo "enter 2nd string"
+	read st2
+
+	c=$st1$st2
+	echo $c
+
+	Converting the input into lowercase and uppercase
+	--------------------------------------------------
+	echo "enter Ist string"
+	read st1
+	echo "enter 2nd string"
+	read st2
+
+	echo ${st1^} #for lowercase
+	echo ${st2^^} #for uppercase
+
+	//Turning first letter capital
+	echo "enter Ist string"
+	read st1
+	echo "enter 2nd string"
+	read st2
+
+	echo ${st1^l} #for capitalizing the first letter
+
+	
+10.	Numbers and Arithmetic
+	n1=4
+	n2=20
+	echo $((  n1 + n2 ))
+
+	You can also write a single script for performing multiple operations 
+	n1=20
+	n2=4
+
+	echo $(( n1 + n2 ))
+	echo $(( n1 - n2 ))
+	echo $(( n1 * n2 ))
+	echo $(( n1 / n2 ))
+	echo $(( n1 % n2 ))
+	
+	using ‘expr’
+	-------------
+	echo $(expr $n1 + $n2 )
+
+	echo $(expr $n1 + $n2 )
+	echo $(expr $n1 - $n2 )
+	echo $(expr $n1 \* $n2 )
+	echo $(expr $n1 / $n2 )
+	echo $(expr $n1 % $n2 )
+
+	Converting hexadecimal into decimal
+	----------------------------------
+	echo "Enter Hex number of your choice"
+	read Hex
+	echo -n "The decimal value of $Hex is : "
+	echo "obase=10; ibase=16; $Hex" | bc
+
+
+11.	Declare Command
+	below will show you a list of variables that exist already in the system.
+	$ declare -p
+
+	$ declare myvariable
+
+	To define a variable with its value
+	$ declare myvariable=11
+	$ declare -p
+
+	Use ‘-r’ to apply the read-only restriction to a file 
+	declare -r pwdfile=/etc/passwd
+	echo $pwdfile
+
+	Now let’s try to make some changes to the file.
+	declare -r pwdfile=/etc/passwd
+	echo $pwdfile
+	pwdfile=/etc/abc.txt
+	
+	As the ‘pwdfile’ is restricted as a read-only file. It should display an error message after script execution
+
+
+12.	Arrays
+	car=('BMW' 'TOYOTA' 'HONDA')
+	echo "${car[@]}"
+
+	index of the array elements 
+	------------------------
+	car=('BMW' 'TOYOTA' 'HONDA')
+	echo "${car[@]}"
+	#printing value by using index
+	echo "printing value using index"
+	echo "${car[0]}"
+	echo "${car[1]}"
+	echo "${car[2]}"
+	
+	You can also print the indexes of the array
+	car=('BMW' 'TOYOTA' 'HONDA')
+	echo "${car[@]}"
+	echo "printing the indexes"
+	echo "${!car[@]}"
+	
+	‘${#car[@]}’ here # represents the total number of elements
+	car=('BMW' 'TOYOTA' 'HONDA' 'ROVER')
+	echo "${car[@]}"
+	echo "printing  the indexes"
+	echo "${!car[@]}"
+	echo "printing number of values"
+	echo "${#car[@]}"
+
+	want to delete any element. For deleting any element use the ‘unset’ command 
+	car=('BMW' 'TOYOTA' 'HONDA' 'ROVER')
+	unset car[2]
+	echo "${car[@]}"
+	echo "printing  the indexes"
+	echo "${!car[@]}"
+	echo "printing number of values"
+	echo "${#car[@]}"
+
+	want to store any other value such as ‘MERCEDES’ at its index which is 2
+	car=('BMW' 'TOYOTA' 'HONDA' 'ROVER')
+	unset car[2]
+	car[2]='MERCEDES'
+	echo "${car[@]}"
+	echo "printing  the indexes"
+	echo "${!car[@]}"
+	echo "printing number of values"
+	echo "${#car[@]}"
+
+13.	Functions
+	Functions are basically reusable lines of code
+	function funcName()
+	{
+    	echo "this is new function"
+	}
+	funcName
+
+	//parameters to the function
+	function funcPrint()
+	{
+    	echo $1
+	}
+
+	funcPrint HI
+
+
+	//You can use multiple parameters 
+	function funcPrint()
+	{
+    	echo $1 $2 $3 $4
+	}
+	funcPrint Hi This is Linuxhint
+
+
+	//Return statement
+	function funcCheck()
+	{
+    	returningValue="using function right now"
+    	echo "$returningValue"
+	}
+
+	funcCheck
+
+
+	function funcCheck()
+	{
+    	returningValue="I love Linux"
+
+	}
+	returningValue="I love MAC"
+	echo $returningValue
+	funcCheck
+	echo $returningValue
+
+
+14.	Files and Directories
+	flag ‘-p’ that deals with the error of creating same directories or folder at a place.
+	mkdir -p Directory2
+
+	//to check whether a directory exists 
+	echo "enter directory name to check"
+	read direct
+
+	if [ -d "$direct" ]
+	then
+    	echo "$direct exists"
+	else
+    	echo "$direct doesn't exist"
+	fi
+
+	‘touch’ command is used to create a file. 
+	echo "enter file name to create"
+	read fileName
+	touch $fileName
+
+	 ‘-f’, as the ‘-f’ flag searches for the file and ‘-d’ for the directories
+	echo "enter file name to check"
+	read fileName
+
+	if [ -f "$fileName" ]
+	then
+    	echo "$fileName exists"
+	else
+    	echo "$fileName doesn't exist"
+	fi
+
+	//program finds the file then asking to enter the text you want to append, 
+	echo "enter file name in which you want to append text"
+	read fileName
+
+	if [ -f "$fileName" ]
+	then
+    	echo "enter the text you want to append"
+    	read fileText
+    	echo "$fileText" >> $fileName
+	else
+    	echo "$fileName doesn't exist"
+	fi
+
+	//replacing the content of the file with the text you want to give at the run time, 
+	echo "enter file name in which you want to append text"
+	read fileName
+
+	if [ -f "$fileName" ]
+	then
+    	echo "enter the text you want to append"
+    	read fileText
+    	echo "$fileText" > $fileName
+	else
+    	echo "$fileName doesn't exist"
+	fi
+
+	//read any file using the script
+	echo "enter file name from which you want to read"
+	read fileName
+
+	if [ -f "$fileName" ]
+	then
+    	while IFS= read -r line
+    	do
+        	echo "$line"
+    	done < $fileName
+	else
+    	echo "$fileName doesn't exist"
+	fi
+
+	//To delete a file
+	echo "enter file name from which you want to delete"
+	read fileName
+
+	if [ -f "$fileName" ]
+	then
+    	rm $fileName
+	else
+    	echo "$fileName doesn't exist"
+	fi
+
+
+15.	Sending Email via Script
+	$ sudo apt install ssmtp
+	$ gedit /etc/ssmtp/ssmtp.conf
+	Edit the following details in ssmtp.conf
+	root=testingm731@gmail.com
+	mailhub=smtp.gmail.com:587
+	AuthUser=testingm731@gmail.com
+	AuthPass= (here you can give the password of your email)
+	UseSTARTTLS=yes
+
+	Now write the following lines of code in your ‘helloScript.sh’ file.
+	#! /bin/bash
+	ssmtp testingm731@gmail.com
+
+
+
+	
+16.	Curl
+	Curls are used to get or send any data files that can have URL syntax
+	sudo apt install curl
+
+	//‘-O’ indicated that it will inherit its file name from its source.
+	url="http://www.ovh.net/files/1Mb.dat"
+	curl ${url} -O
+
+	//To give the downloaded file a new name, simply use the ‘-o’ flag 
+	url="http://www.ovh.net/files/1Mb.dat"
+	curl ${url} -o NewFileDownload
+
+	//download a header file 
+	url="http://www.ovh.net/files/1Mb.dat"
+	curl -I ${url}
+
+
+17.	Professional Menus
+	select car in BMW MERCEDES TESLA ROVER TOYOTA
+	do
+    	echo "you have selected $car"
+	done
+
+
+	select car in BMW MERCEDES TESLA ROVER TOYOTA
+	do
+    		case $car in
+    		BMW)
+    			echo "BMW SELECTED";;
+    		MERCEDES)
+    			echo "MERCEDES SELECTED";;
+    		TESLA)
+    			echo "TESLA SELECTED";;
+    		ROVER)
+    			echo "ROVER SELECTED";;
+    		TOYOTA)
+    			echo "TOYOTA SELECTED";;
+    		*)
+    			echo "ERROR! Please select between 1 to 5";;
+		esac
+	done
+
+	
+	the program has to wait for the user input
+	echo "press any key to continue"
+	while [ true ]
+	do
+    	read -t 3 -n 1
+	if [ $? = 0 ]
+	then
+    	echo "you have terminated the script"
+    	exit;
+	else
+    	echo "waiting for you to press the key Sir"
+	fi
+	done
+
+
+18.	Wait for a File system using inotify
+	sudo apt install inotify-tools
+
+	#! /bin/bash
+	Inotifywait -m /temp/NewFolder
+
+
+19.	Introduction to grep
+	Grep stands for ‘global regular expression print’.
+	//the user, then it will read the input, store that in a variable, and then ask the user to enter the text to search
+	echo "enter a filename to search text from"
+	read fileName
+	if [[ -f $fileName ]]
+	then
+    		echo "enter the text to search"
+    		read grepvar
+    		grep $grepvar $fileName
+	else
+    		echo "$fileName doesn't exist"
+	fi
+
+	grep -i $grepvar $fileName
+
+	//extract the line number with the output
+	grep -i -n $grepvar $fileName
+
+	
+20.	Introduction to awk
+	Awk is the scripting language that is used for manipulating data and writing reports. 
+	echo "enter a filename to print from awk"
+	read fileName
+	if [[ -f $fileName ]]
+	then
+    		awk '{print}' $fileName
+	else
+    		echo "$fileName doesn't exist"
+	fi
+
+	//We can also search for a specific pattern using ‘awk’
+	echo "enter filename to print from awk"
+	read fileName
+	if [[ -f $fileName ]]
+	then
+   
+    	awk '/Linux/ {print}' $fileName
+	else
+    	echo "$fileName doesn't exist"
+	fi
+
+
+	echo "enter a filename to print from awk"
+	read fileName
+	if [[ -f $fileName ]]
+	then
+   
+    		awk '/Linux/ {print $2}' $fileName
+	else
+    	echo "$fileName doesn't exist"
+	fi
+
+	//retrieving the last word ‘$4’ of the lines where it found ‘Linux’.
+	echo "enter filename to print from awk"
+	read fileName
+	if [[ -f $fileName ]]
+	then
+   
+    		awk '/Linux/ {print $4} ' $fileName
+	else
+    		echo "$fileName doesn't exist"
+	fi
+
+	//awk '/Linux/ {print $3,$4} ' $fileName
+
+
+21.	Introduction to sed
+	The sed command stands for stream editor, performs editing operations on text coming from standard input or a file
+	echo "enter filename to substitute using sed"
+	read fileName
+	if [[ -f $fileName ]]
+	then
+    		cat filegrep.txt | sed 's/i/I/'
+   
+	else
+    		echo "$fileName doesn't exist"
+	fi
+
+	//You can also substitute the whole word with another
+	echo "enter filename to substitute using sed"
+	read fileName
+	if [[ -f $fileName ]]
+	then
+     		sed 's/Linux/Unix/g' $fileName
+   
+	else
+    		echo "$fileName doesn't exist"
+	fi
+
+
+
+22.	Debugging Bash Scripts
+	$ bash -x ./helloScript.sh
+
+	Simply put the ‘-x’ flag in the first line of the script after the bash path
+
+	#! /bin/bash -x
+	echo "enter filename to substitute using sed"
+	read fileName
+	if [[ -f $fileName ]]
+	then
+     		sed 's/Linux/Unix/g' $fileName
+   
+	else
+    		echo "$fileName doesn't exist"
+	fi
+
+	
+	//you can select the starting and ending points for the debugging.
+	set -x
+	echo "enter filename to substitute using sed"
+	read fileName
+	set +x
+	if [[ -f $fileName ]]
+	then
+     		sed 's/Linux/Unix/g' $fileName
+   
+	else
+    	echo "$fileName doesn't exist"
+	fi
+
+
+
+
+	
+	
